@@ -8,8 +8,8 @@ import Hydrated from "@/components/Hydrated";
 const outfit = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BuildIndia",
-  description: "Peer support network",
+  title: "Tight Knit",
+  description: "Help your friends when they are low",
 };
 
 export default function RootLayout({

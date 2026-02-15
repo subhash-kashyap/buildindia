@@ -157,7 +157,7 @@ export default function ChatScreen() {
             </Avatar>
             <div>
               <p className="font-black text-base leading-none tracking-tight italic">Support Circle</p>
-              <div className="flex items-center gap-1.5 mt-1 opacity-40">
+              <div className="flex items-center gap-1.5 mt-1 opacity-60">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                 <span className="text-[9px] text-muted-foreground uppercase tracking-widest font-black">Encrypted</span>
               </div>
@@ -178,7 +178,7 @@ export default function ChatScreen() {
         ref={scrollRef}
         className="flex-1 overflow-y-auto px-6 flex flex-col gap-6 pb-40 pt-10 bg-white/20"
       >
-        <div className="flex flex-col items-center gap-2 my-8 opacity-40">
+        <div className="flex flex-col items-center gap-2 my-8 opacity-60">
            <div className="bg-white/80 px-4 py-1.5 rounded-full border border-black/[0.03]">
              <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">{new Date(currentConv.createdAt).toLocaleDateString()}</span>
            </div>
@@ -213,7 +213,7 @@ export default function ChatScreen() {
               <span className="w-1.5 h-1.5 rounded-full bg-primary/20 animate-bounce" style={{ animationDelay: '150ms' }} />
               <span className="w-1.5 h-1.5 rounded-full bg-primary/20 animate-bounce" style={{ animationDelay: '300ms' }} />
             </div>
-            <span className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-widest mt-0.5 whitespace-nowrap">Typing...</span>
+            <span className="text-[9px] font-black text-muted-foreground/60 uppercase tracking-widest mt-0.5 whitespace-nowrap">Typing...</span>
           </div>
         )}
       </div>

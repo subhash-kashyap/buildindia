@@ -48,7 +48,7 @@
     --secondary: 30 10% 92%;
     --secondary-foreground: 30 15% 20%;
     --muted: 30 10% 92%;
-    --muted-foreground: 30 10% 50%;
+    --muted-foreground: 30 10% 40%;
     --accent: 30 15% 90%;
     --accent-foreground: 30 15% 20%;
     --destructive: 0 50% 50%;
@@ -71,7 +71,7 @@
     --secondary: 30 10% 15%;
     --secondary-foreground: 30 10% 90%;
     --muted: 30 10% 15%;
-    --muted-foreground: 30 10% 60%;
+    --muted-foreground: 30 10% 70%;
     --accent: 30 10% 15%;
     --accent-foreground: 30 10% 90%;
     --destructive: 0 50% 50%;
@@ -90,7 +90,7 @@
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;
-    font-weight: 400; /* Softer weight */
+    font-weight: 300; /* Softer weight */
   }
 }
 
@@ -124,28 +124,41 @@
   display: flex;
   flex-direction: column;
   background-color: hsl(var(--background));
+  box-shadow: 0 0 40px rgba(0,0,0,0.02);
 }
 
 .main-content {
   flex: 1;
   padding: 1.25rem;
   padding-bottom: 7rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: none; /* Hide scrollbar for cleaner Zen look */
+}
+
+.main-content::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome/Safari */
 }
 
 @media (min-width: 431px) {
   body {
-    background-color: #E6E2DE; /* Soft beige background */
+    background-color: #EFEDE9; /* Lightened Zen beige background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
   }
   .app-container {
-    box-shadow: 0 0 80px rgba(0,0,0,0.03);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    height: calc(100vh - 2rem);
-    border-radius: 3rem;
+    box-shadow: 0 0 100px rgba(0,0,0,0.05);
+    height: 92vh;
+    width: 430px;
+    border-radius: 3.5rem;
+    overflow: hidden;
   }
 }
 
 /* Transitions */
 .premium-transition {
-  transition: all 0.5s cubic-bezier(0.2, 0, 0, 1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }

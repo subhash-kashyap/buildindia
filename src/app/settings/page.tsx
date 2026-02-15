@@ -9,7 +9,6 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { SignOutButton } from '@clerk/nextjs';
 import { Globe, Bell, Shield, LogOut, Trash2, Zap, UserPlus, ChevronRight } from 'lucide-react';
 
@@ -21,6 +20,7 @@ export default function SettingsPage() {
 
   const handleLanguageChange = (value: string) => {
     setUser({ ...user, language: value });
+    window.location.reload();
   };
 
   const handleResetData = () => {
@@ -35,116 +35,143 @@ export default function SettingsPage() {
       id: Date.now().toString(),
       timestamp: new Date().toISOString(),
       intensity: 50,
+      user_name: 'Friend'
     };
     setActiveRequests([...activeRequests, newRequest]);
     alert("Support request triggered (Simulated)");
   };
 
   return (
-    <div className="flex flex-col gap-6 max-w-md mx-auto p-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <h1 className="text-3xl font-extrabold tracking-tight text-foreground/90">{t('settings')}</h1>
+    <div className="flex flex-col gap-8 pb-32 animate-in fade-in duration-1000">
+      <div className="flex flex-col gap-1 py-4">
+        <h1 className="text-4xl font-black tracking-tighter text-foreground italic">{t('settings')}</h1>
+        <p className="text-muted-foreground font-bold text-sm tracking-tight opacity-40">Preferences & Tools</p>
+      </div>
 
-      <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm">
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <Globe className="w-5 h-5 text-primary" />
-            <CardTitle>{t('language')}</CardTitle>
-          </div>
-          <CardDescription>Choose your preferred language for the app.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Select value={lang} onValueChange={handleLanguageChange}>
-            <SelectTrigger className="w-full bg-white">
-              <SelectValue placeholder="Select Language" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="en">English</SelectItem>
-              <SelectItem value="hi">हिन्दी (Hindi)</SelectItem>
-              <SelectItem value="ta">தமிழ் (Tamil)</SelectItem>
-              <SelectItem value="bn">বাংলা (Bengali)</SelectItem>
-            </SelectContent>
-          </Select>
-        </CardContent>
-      </Card>
-
-      <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm">
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <Bell className="w-5 h-5 text-primary" />
-            <CardTitle>{t('notifications')}</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="peer-notifications">Peer Support Alerts</Label>
-            <Switch id="peer-notifications" defaultChecked />
-          </div>
-          <div className="flex items-center justify-between">
-            <Label htmlFor="system-notifications">System Updates</Label>
-            <Switch id="system-notifications" />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm">
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <Zap className="w-5 h-5 text-yellow-500" />
-            <CardTitle>Prototype Tools</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <Button variant="outline" className="w-full justify-start gap-2 h-11" onClick={handleTriggerSupport}>
-            <Zap className="w-4 h-4" />
-            Trigger Demo Support Request
-          </Button>
-        </CardContent>
-      </Card>
-
-      <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm">
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <UserPlus className="w-5 h-5 text-primary" />
-            <CardTitle>Community</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <Button variant="outline" className="w-full justify-between items-center h-12 rounded-xl border-black/5 hover:bg-white transition-all font-bold px-4" onClick={() => alert("Invite link copied!")}>
+      <div className="space-y-6">
+        <Card className="border-none shadow-premium bg-white/40 backdrop-blur-md p-2 rounded-[2.5rem] border border-black/[0.02]">
+          <CardHeader className="pb-4">
             <div className="flex items-center gap-3">
-              <UserPlus className="w-4 h-4 text-primary" />
-              <span>Invite Trusted Friends</span>
+              <div className="bg-primary/5 p-2 rounded-xl text-primary border border-black/[0.03]">
+                <Globe className="w-5 h-5" strokeWidth={1.5} />
+              </div>
+              <CardTitle className="text-xl font-black tracking-tight italic">{t('language')}</CardTitle>
             </div>
-            <ChevronRight className="w-4 h-4 text-muted-foreground/40" />
-          </Button>
-        </CardContent>
-      </Card>
+            <CardDescription className="font-bold text-xs">Choose your preferred language.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Select value={lang} onValueChange={handleLanguageChange}>
+              <SelectTrigger className="w-full bg-white/60 border-none rounded-2xl h-12 shadow-sm font-bold">
+                <SelectValue placeholder="Select Language" />
+              </SelectTrigger>
+              <SelectContent className="rounded-2xl border-none shadow-premium-lg">
+                <SelectItem value="en">English</SelectItem>
+                <SelectItem value="hi">हिन्दी (Hindi)</SelectItem>
+                <SelectItem value="ta">தமிழ் (Tamil)</SelectItem>
+                <SelectItem value="bn">বাংলা (Bengali)</SelectItem>
+              </SelectContent>
+            </Select>
+          </CardContent>
+        </Card>
 
-      <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm">
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <Shield className="w-5 h-5 text-primary" />
-            <CardTitle>{t('privacy_info')}</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm text-muted-foreground font-bold leading-relaxed">
-            Your conversations are private and pseudo-anonymous. We do not share your identity within your contact circle.
-          </p>
-        </CardContent>
-      </Card>
+        <Card className="border-none shadow-premium bg-white/40 backdrop-blur-md p-2 rounded-[2.5rem] border border-black/[0.02]">
+          <CardHeader className="pb-4">
+            <div className="flex items-center gap-3">
+              <div className="bg-primary/5 p-2 rounded-xl text-primary border border-black/[0.03]">
+                <Bell className="w-5 h-5" strokeWidth={1.5} />
+              </div>
+              <CardTitle className="text-xl font-black tracking-tight italic">{t('notifications')}</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="peer-notifications" className="font-bold text-muted-foreground/80">Support Pulse Alerts</Label>
+              <Switch id="peer-notifications" defaultChecked />
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="system-notifications" className="font-bold text-muted-foreground/80">Growth Insights</Label>
+              <Switch id="system-notifications" />
+            </div>
+          </CardContent>
+        </Card>
 
-      <div className="flex flex-col gap-3 mt-4">
-        <Button variant="destructive" className="w-full justify-start gap-2 h-11" onClick={handleResetData}>
-          <Trash2 className="w-4 h-4" />
-          {t('reset_data')}
-        </Button>
-        
+        <Card className="border-none shadow-premium bg-white/40 backdrop-blur-md p-2 rounded-[2.5rem] border border-black/[0.02]">
+          <CardHeader className="pb-4">
+            <div className="flex items-center gap-3">
+              <div className="bg-primary/5 p-2 rounded-xl text-yellow-500 border border-black/[0.03]">
+                <Zap className="w-5 h-5" strokeWidth={1.5} />
+              </div>
+              <CardTitle className="text-xl font-black tracking-tight italic">Dev Sandbox</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <Button 
+                onClick={handleTriggerSupport}
+                className="w-full h-12 rounded-2xl bg-white/60 text-foreground border border-black/[0.03] shadow-sm hover:bg-white font-black flex items-center justify-start gap-3 premium-transition"
+            >
+              <Zap className="w-4 h-4 text-yellow-500" strokeWidth={2} />
+              Simulate Support Request
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="border-none shadow-premium bg-white/40 backdrop-blur-md p-2 rounded-[2.5rem] border border-black/[0.02]">
+          <CardHeader className="pb-4">
+            <div className="flex items-center gap-3">
+              <div className="bg-primary/5 p-2 rounded-xl text-primary border border-black/[0.03]">
+                <UserPlus className="w-5 h-5" strokeWidth={1.5} />
+              </div>
+              <CardTitle className="text-xl font-black tracking-tight italic">Circle Management</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <Button 
+                onClick={() => alert("Invite link copied!")}
+                className="w-full h-14 rounded-2xl bg-white/60 text-foreground border border-black/[0.03] shadow-sm hover:bg-white font-black flex items-center justify-between px-6 premium-transition"
+            >
+              <div className="flex items-center gap-3">
+                <UserPlus className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                <span>Invite Trusted Friends</span>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground/30" strokeWidth={2.5} />
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="border-none shadow-premium bg-white/40 backdrop-blur-md p-2 rounded-[2.5rem] border border-black/[0.02]">
+          <CardHeader className="pb-4">
+            <div className="flex items-center gap-3">
+              <div className="bg-primary/5 p-2 rounded-xl text-primary border border-black/[0.03]">
+                <Shield className="w-5 h-5" strokeWidth={1.5} />
+              </div>
+              <CardTitle className="text-xl font-black tracking-tight italic">Privacy Policy</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <p className="text-xs text-muted-foreground font-bold leading-relaxed opacity-60">
+              Tight Knit is built for security. Your pulses are only seen by people you trust. We do not store identifiable personal phone data.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="flex flex-col gap-4 mt-6">
         <SignOutButton>
-          <Button variant="secondary" className="w-full justify-start gap-2 h-11">
-            <LogOut className="w-4 h-4" />
+          <Button 
+            className="w-full h-14 rounded-[1.75rem] bg-secondary/60 text-primary hover:bg-secondary font-black flex items-center justify-start gap-4 px-8 premium-transition"
+          >
+            <LogOut className="w-4 h-4" strokeWidth={2} />
             {t('logout')}
           </Button>
         </SignOutButton>
+        
+        <Button 
+          onClick={handleResetData}
+          className="w-full h-14 rounded-[1.75rem] border border-black/[0.03] text-rose-500/60 hover:text-rose-500 hover:bg-rose-50/50 bg-transparent font-black flex items-center justify-start gap-4 px-8 premium-transition"
+        >
+          <Trash2 className="w-4 h-4" strokeWidth={2} />
+          {t('reset_data')}
+        </Button>
       </div>
     </div>
   );
