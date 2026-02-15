@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { SignOutButton } from '@clerk/nextjs';
-import { Globe, Bell, Shield, LogOut, Trash2, Zap } from 'lucide-react';
+import { Globe, Bell, Shield, LogOut, Trash2, Zap, UserPlus, ChevronRight } from 'lucide-react';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -104,12 +104,30 @@ export default function SettingsPage() {
       <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm">
         <CardHeader>
           <div className="flex items-center gap-2">
+            <UserPlus className="w-5 h-5 text-primary" />
+            <CardTitle>Community</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <Button variant="outline" className="w-full justify-between items-center h-12 rounded-xl border-black/5 hover:bg-white transition-all font-bold px-4" onClick={() => alert("Invite link copied!")}>
+            <div className="flex items-center gap-3">
+              <UserPlus className="w-4 h-4 text-primary" />
+              <span>Invite Trusted Friends</span>
+            </div>
+            <ChevronRight className="w-4 h-4 text-muted-foreground/40" />
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm">
+        <CardHeader>
+          <div className="flex items-center gap-2">
             <Shield className="w-5 h-5 text-primary" />
             <CardTitle>{t('privacy_info')}</CardTitle>
           </div>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-sm text-muted-foreground font-bold leading-relaxed">
             Your conversations are private and pseudo-anonymous. We do not share your identity within your contact circle.
           </p>
         </CardContent>

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import BottomNav from "@/components/BottomNav";
 import { ClerkProvider } from "@clerk/nextjs";
 import Hydrated from "@/components/Hydrated";
 
-const inter = Inter({ subsets: ["latin"] });
+const outfit = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "BuildIndia",
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={outfit.className}>
           <div className="app-container">
             <main className="main-content">
               <Hydrated>

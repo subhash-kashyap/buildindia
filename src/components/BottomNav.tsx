@@ -12,11 +12,10 @@ export default function BottomNav() {
     { label: 'Home', href: '/', icon: Home },
     { label: 'Chat', href: '/chat', icon: MessageCircle },
     { label: 'Educate', href: '/educate', icon: BookOpen },
-    { label: 'Settings', href: '/settings', icon: Settings },
   ];
 
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] h-16 glass flex justify-around items-center px-4 z-50 rounded-t-2xl shadow-lg border-t border-white/30 bg-white/40 backdrop-blur-lg">
+    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-[400px] h-16 glass flex justify-around items-center px-6 z-50 rounded-3xl shadow-premium border border-white/20">
       {navItems.map((item) => {
         const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
         const Icon = item.icon;
@@ -26,12 +25,14 @@ export default function BottomNav() {
             key={item.href}
             href={item.href}
             className={cn(
-              "flex flex-col items-center gap-1 transition-all duration-300",
-              isActive ? "text-primary scale-110" : "text-muted-foreground hover:text-foreground"
+              "relative flex flex-col items-center gap-1 p-2 premium-transition",
+              isActive ? "text-primary" : "text-muted-foreground/60 hover:text-foreground/80"
             )}
           >
-            <Icon size={isActive ? 24 : 20} strokeWidth={isActive ? 2.5 : 2} />
-            <span className="text-[10px] font-semibold">{item.label}</span>
+            <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
+            {isActive && (
+              <span className="absolute -bottom-1 w-1 h-1 bg-primary rounded-full" />
+            )}
           </Link>
         );
       })}
